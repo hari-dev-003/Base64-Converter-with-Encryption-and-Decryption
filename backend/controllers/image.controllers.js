@@ -1,8 +1,10 @@
 const crypto = require('crypto');
 const Image = require('../models/image.models');
+const dotenv = require('dotenv');
+dotenv.config();
 
 const ALGORITHM = 'aes-256-cbc';
-const IV_LENGTH = 16; // AES block size in bytes
+const IV_LENGTH = 64; // AES block size in bytes
 
 exports.encryptImage = async (req, res) => {
     try {
@@ -17,9 +19,14 @@ exports.encryptImage = async (req, res) => {
         // Generate random IV for each encryption
         const iv = crypto.randomBytes(IV_LENGTH);
         
+       // Check if SECRET_KEY is defined
+        if (!process.env.SECRET_KEY) {
+            throw new Error('SECRET_KEY is not defined in .env');
+        }
+
         // Convert secret key from hex to Buffer
         const key = Buffer.from(process.env.SECRET_KEY, 'hex');
-        
+
         // Validate key length (256-bit = 32 bytes)
         if (key.length !== 32) {
             throw new Error('Invalid key length. Must be 256-bit (32 bytes)');
@@ -35,9 +42,8 @@ exports.encryptImage = async (req, res) => {
         // Save to MongoDB with separate fields
         const newImage = await Image.create({ iv: iv.toString('hex'), ciphertext: encrypted });
         
-        res.status(200).json({ 
-            id: newImage._id,
-            encryptedData: encrypted // Return encrypted data without IV to client
+        res.status(200).json({
+            id: newImage._id
         });
 
     } catch (err) {

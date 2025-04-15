@@ -13,7 +13,9 @@ app.use('/api/images', imageRoutes);
 
 
 
-mongoose.connect('mongodb+srv://2k23cse053:database@d-signature-system.tedit.mongodb.net/?retryWrites=true&w=majority&appName=D-signature-system')
+mongoose.connect('mongodb+srv://2k23cse053:database@d-signature-system.tedit.mongodb.net/?retryWrites=true&w=majority&appName=D-signature-system', {
+    serverSelectionTimeoutMS: 30000 // Increase timeout to 30 seconds
+  })
   .then(() => console.log('MongoDB connected'))
   .catch(err => console.error(err));
 

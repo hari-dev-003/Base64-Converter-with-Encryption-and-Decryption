@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import axios from 'axios';
 
 function EncryptImage() {
-  let [imageData, setImageData] = useState('');
+  let [imageData, setImageData] = useState();
   const [encryptedCode, setEncryptedCode] = useState('');
 
   const handleEncrypt = async () => {
@@ -12,7 +12,7 @@ function EncryptImage() {
         { imageData: imageData },
         {
           headers: {
-            'Content-Type': 'application/json', // Ensure JSON content type
+            'Content-Type': 'application/json', 
           },
         
         }
