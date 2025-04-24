@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-function DecryptImage() {
+function Base64ToImage() {
   const [base64String, setBase64String] = useState('');
 
   const handleInputChange = (event) => {
@@ -21,4 +21,4 @@ function DecryptImage() {
   );
 }
 
-export default DecryptImage;
+export default Base64ToImage;

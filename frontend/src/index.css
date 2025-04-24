@@ -15,7 +15,7 @@
 
 a {
   font-weight: 500;
-  color: #646cff;
+  color: #a1a3cb;
   text-decoration: inherit;
 }
 a:hover {
@@ -23,9 +23,10 @@ a:hover {
 }
 
 body {
-  margin: 0;
+  margin: auto;
   display: flex;
-  place-items: center;
+  
+  justify-content: center;
   min-width: 320px;
   min-height: 100vh;
 }
@@ -65,4 +66,12 @@ button:focus-visible {
   button {
     background-color: #f9f9f9;
   }
+}
+
+.align-items{
+  margin-top: 200px;
+}
+
+.text-size{
+  font-size: 1.5em;
 }
