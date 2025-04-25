@@ -35,7 +35,7 @@ app.use(express.json({ limit: '10mb' })); // Increase from default 100kb
 app.use(express.urlencoded({ extended: true, limit: '10mb' }));
 app.use('/api/images', imageRoutes);
 
-mongoose.connect('mongodb+srv://2k23cse053:database@d-signature-system.tedit.mongodb.net/?retryWrites=true&w=majority&appName=D-signature-system', {
+mongoose.connect('mongodb+srv://dbUser:root@digital-signature-syste.iamvikh.mongodb.net/?retryWrites=true&w=majority&appName=digital-signature-system', {
   serverSelectionTimeoutMS: 30000 // Increase timeout to 30 seconds
 })
   .then(() => console.log('MongoDB connected'))
