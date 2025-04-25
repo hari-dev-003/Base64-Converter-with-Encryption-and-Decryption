@@ -27,3 +27,9 @@ nav a:hover {
   background-color: rgb(59, 61, 219);
   color: white;
 }
+
+.Base64-align{
+  display: flex;
+  flex-direction: column;
+  gap: 50px;
+}

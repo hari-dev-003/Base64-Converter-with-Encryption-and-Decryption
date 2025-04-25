@@ -1,27 +1,28 @@
 const Image = require('../models/image.models');
-const { encrypt, decrypt } = require('../index'); // Import encryption functions
 
 exports.encryptImage = async (req, res) => {
   try {
-    const { imageData } = req.body;
+    const { imageData, imageName } = req.body;
 
     if (!imageData || typeof imageData !== 'string') {
       return res.status(400).json({ error: 'Invalid image data' });
     }
 
-    const encryptedData = encrypt(imageData);
-    const [iv, ciphertext] = encryptedData.split(':');
+    const newImage = new Image({
+      imageName: imageName,
+      imageData: imageData
+    });
 
-    const newImage = await Image.create({ iv, ciphertext });
+    await newImage.save();
 
     res.status(200).json({
-      id: newImage._id
+      message: 'Image saved successfully'
     });
   } catch (err) {
-    console.error('Encryption error:', err);
+    console.error('Error saving image:', err);
     res.status(500).json({
       error: err.message,
-      details: 'Encryption failed'
+      details: 'Failed to save image'
     });
   }
 };
@@ -35,18 +36,59 @@ exports.decryptImage = async (req, res) => {
       return res.status(404).json({ error: 'Image not found' });
     }
 
-    const encryptedData = imageRecord.iv + ':' + imageRecord.ciphertext;
-    const imageData = decrypt(encryptedData);
-
     res.status(200).json({
-      imageData: imageData,
-      message: 'Decryption successful'
+      imageData: imageRecord.imageData,
+      message: 'Image retrieval successful'
     });
   } catch (err) {
-    console.error('Decryption error:', err);
+    console.error('Error retrieving image:', err);
     res.status(500).json({
       error: err.message,
-      details: 'Decryption failed'
+      details: 'Failed to retrieve image'
+    });
+  }
+};
+
+exports.saveImage = async (req, res) => {
+  try {
+    const { imageData, imageName } = req.body;
+
+    if (!imageData || typeof imageData !== 'string') {
+      return res.status(400).json({ error: 'Invalid image data' });
+    }
+
+    if (!imageName || typeof imageName !== 'string') {
+      return res.status(400).json({ error: 'Invalid image name' });
+    }
+
+    const newImage = new Image({
+      imageName: imageName,
+      imageData: imageData
+    });
+
+    await newImage.save();
+
+    res.status(200).json({
+      message: 'Image saved successfully'
+    });
+  } catch (err) {
+    console.error('Error saving image:', err);
+    res.status(500).json({
+      error: err.message,
+      details: 'Failed to save image'
+    });
+  }
+};
+
+exports.getAllImages = async (req, res) => {
+  try {
+    const images = await Image.find();
+    res.status(200).json(images);
+  } catch (err) {
+    console.error('Error getting images:', err);
+    res.status(500).json({
+      error: err.message,
+      details: 'Failed to get images'
     });
   }
 };

@@ -8,16 +8,24 @@ function Base64ToImage() {
   };
 
   return (
-    <div>
+    <>
+    <div className='Base64-align'>
       <h2>Display Image from Base64</h2>
       <input
-        type="text"
+        type="text-field"
         placeholder="Enter Base64 String"
         value={base64String}
         onChange={handleInputChange}
+        style={{ width: '300px', height: '50px', marginBottom: '20px' }}
       />
+      
+      <div>
       {base64String && <img src={base64String} alt="Base64 Image" />}
+      </div>
+     
     </div>
+
+    </>
   );
 }
 
