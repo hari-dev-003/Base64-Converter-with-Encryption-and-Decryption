@@ -7,6 +7,7 @@ function EncryptImage() {
 
   const handleEncrypt = async () => {
     try {
+      console.log('Sending data to save:', { imageData, imageName });
       const response = await axios.post('http://localhost:5000/api/images/save', {
         imageData: imageData,
         imageName: imageName

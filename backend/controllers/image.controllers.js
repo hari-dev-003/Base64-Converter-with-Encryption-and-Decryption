@@ -49,6 +49,28 @@ exports.decryptImage = async (req, res) => {
   }
 };
 
+exports.decryptImageByName = async (req, res) => {
+  try {
+    const { name } = req.params;
+
+    const imageRecord = await Image.findOne({ imageName: name });
+    if (!imageRecord) {
+      return res.status(404).json({ error: 'Image not found' });
+    }
+
+    res.status(200).json({
+      imageData: imageRecord.imageData,
+      message: 'Image retrieval successful'
+    });
+  } catch (err) {
+    console.error('Error retrieving image by name:', err);
+    res.status(500).json({
+      error: err.message,
+      details: 'Failed to retrieve image by name'
+    });
+  }
+};
+
 exports.saveImage = async (req, res) => {
   try {
     const { imageData, imageName } = req.body;

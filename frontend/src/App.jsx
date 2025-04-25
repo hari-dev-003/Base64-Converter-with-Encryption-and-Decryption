@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Route, Link, Routes, Navigate } from 'react-ro
 import EncryptImage from './components/EncryptImage';
 import Base64ToImage from './components/Base64ToImage';
 import ConvertBase64 from './components/ConvertToBase64';
+import DecryptImage from './components/DecryptImage'
 ;
 import './App.css';
 
@@ -24,7 +25,7 @@ function App() {
         <Routes>
           <Route path="/" element={<Navigate to="/encrypt" />} />
           <Route path="/encrypt" element={<ConvertBase64/>} />
-          <Route path="/base64" element={<Base64ToImage />} />
+          <Route path="/decrypt" element={<DecryptImage />} />
         </Routes>
       </div>
     </Router>
