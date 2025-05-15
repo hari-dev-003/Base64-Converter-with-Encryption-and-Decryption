@@ -17,7 +17,7 @@ function App() {
               <Link to="/encrypt">Encrypt Image</Link>
             </li>
             <li>
-              <Link to="/base64">Base64 to Image</Link>
+              <Link to="/decrypt">Decrypt Image</Link>
             </li>
           </ul>
         </nav>

@@ -114,3 +114,16 @@ exports.getAllImages = async (req, res) => {
     });
   }
 };
+
+exports.getAllSignatures = async (req, res) => {
+  try {
+    const signatures = await Image.find({}, '_id imageName');
+    res.status(200).json(signatures);
+  } catch (err) {
+    console.error('Error getting signatures:', err);
+    res.status(500).json({
+      error: err.message,
+      details: 'Failed to get signatures'
+    });
+  }
+};
